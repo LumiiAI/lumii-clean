@@ -1,5 +1,29 @@
 import streamlit as st
 
+def render_status_badge(status: str, msg: str = "") -> str:
+    if status == "warning":
+        return f"<span class='badge' style='background:#fff8e1;border-color:#f6c453;'>⚠️ {msg or 'Memory: managing'}</span>"
+    if status == "critical":
+        return f"<span class='badge' style='background:#ffe5e5;border-color:#f08a8a;'>⛔ {msg or 'AI unavailable'}</span>"
+    return "<span class='badge' style='background:#eefbf1;border-color:#9bd1a5;'>✅ Ready</span>"
+
+# wherever you compute status (or mock it for now)
+status, status_msg = ("normal", "")
+badge_html = render_status_badge(status, status_msg)
+
+# in your header card HTML, replace the static “Safety-first” badge with:
+#   {badge_html}
+# example:
+st.markdown(f"""
+<div class="card" style="display:flex; align-items:center; justify-content:space-between;">
+  <div>
+    <div style="font-size:1.45rem; font-weight:800;">🎓 My Friend Lumii</div>
+    <div class="subtitle">Safe, clear help for Math • Physics • Chemistry • Geography • History</div>
+  </div>
+  {badge_html}
+</div>
+""", unsafe_allow_html=True)
+
 st.set_page_config(page_title="My Friend Lumii", page_icon="🎓", layout="centered")
 
 # ---------- Light UI polish ----------

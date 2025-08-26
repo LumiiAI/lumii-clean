@@ -99,38 +99,118 @@ if not st.session_state.agreed_to_terms:
 
 # ---------- MAIN UI (shell) ----------
 st.markdown('<h1 class="main-header">🎓 My Friend Lumii</h1>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Your safe AI Math, Physics, Chemistry, Geography & History tutor! 🛡️💙</p>', unsafe_allow_html=True)
+# ---------- MAIN UI (polished) ----------
 
-# Welcome card
+# small style add-ons
 st.markdown("""
-<div class="card" style="margin:10px 0;">
-  🛡️ <b>Safety first</b> — always protective<br>
-  📚 <b>Focus</b> — Math • Physics • Chemistry • Geography • History<br>
-  💡 <b>Help</b> — clear explanations, study tips, confusion support<br>
-  🤝 <b>Respect</b> — kind guidance
+<style>
+.badge {display:inline-flex; gap:.4rem; align-items:center; padding:.35rem .6rem;
+  border:1px solid rgba(0,0,0,.08); border-radius:999px; font-size:.82rem; background:#fff;}
+.kpi {background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:.9rem;
+  box-shadow:0 1px 4px rgba(0,0,0,.05); text-align:center;}
+.kpi .v {font-weight:700; font-size:1.1rem;}
+.kpi .l {color:#5b6270; font-size:.85rem;}
+.chips {display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1rem;}
+.chips button {border-radius:999px !important; padding:.35rem .75rem !important; font-size:.9rem !important;}
+.card {background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:14px; padding:16px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.section-title{font-weight:700; font-size:1.1rem; margin:.25rem 0 .5rem;}
+</style>
+""", unsafe_allow_html=True)
+
+# header
+st.markdown("""
+<div class="card" style="display:flex; align-items:center; justify-content:space-between;">
+  <div>
+    <div style="font-size:1.45rem; font-weight:800;">🎓 My Friend Lumii</div>
+    <div class="subtitle">Safe, clear help for Math • Physics • Chemistry • Geography • History</div>
+  </div>
+  <div class="badge">🛡️ Safety-first</div>
 </div>
 """, unsafe_allow_html=True)
 
-# Help section
-st.subheader("💙 If You Need Help")
-st.markdown("**Talk to a trusted adult right now** — a parent/caregiver, teacher, or school counselor.")
+# top KPIs (placeholders you can wire to real values later)
+c1, c2, c3 = st.columns(3)
+with c1: st.markdown('<div class="kpi"><div class="v">0</div><div class="l">Conversations</div></div>', unsafe_allow_html=True)
+with c2: st.markdown('<div class="kpi"><div class="v">—</div><div class="l">Study streak</div></div>', unsafe_allow_html=True)
+with c3: st.markdown('<div class="kpi"><div class="v">On</div><div class="l">Memory</div></div>', unsafe_allow_html=True)
 
-# API status (placeholder — replace with your real block later)
-st.subheader("🤖 AI Status")
-try:
-    # Example read from Streamlit secrets; replace with your logic
-    api_key = st.secrets.get("GROQ_API_KEY")
-    if st.session_state.get("memory_safe_mode", False):
-        st.warning("⚠️ Memory Safe Mode Active")
+# quick-start chips (prefill chat)
+st.markdown('<div class="section-title">Quick start</div>', unsafe_allow_html=True)
+chip_cols = st.columns(5)
+chips = [
+  "Explain quadratic formula",
+  "Help me balance this equation",
+  "Walk me through Newton’s laws",
+  "Map skills practice",
+  "Study plan for a test",
+]
+for idx, (col, label) in enumerate(zip(chip_cols, chips)):
+    with col:
+        if st.button(label, key=f"chip_{idx}"):
+            st.session_state.setdefault("prefill", label)
+            st.rerun()
+
+st.divider()
+
+# two-column layout: left chat, right tips/shortcuts
+left, right = st.columns([2, 1])
+
+# LEFT: chat area
+with left:
+    st.markdown('<div class="section-title">Chat</div>', unsafe_allow_html=True)
+
+    # show history if present
+    if "messages" in st.session_state and st.session_state.messages:
+        for m in st.session_state.messages:
+            with st.chat_message(m["role"]):
+                st.markdown(m["content"])
     else:
-        st.success("✅ Smart AI with Safety Active")
-    st.caption("Full safety protocols enabled")
-except Exception:
-    st.error("❌ API Configuration Missing")
+        st.info("Ask a question or pick a quick-start chip above to begin.")
 
-# Chat placeholder (replace with your chat logic later)
-st.subheader("💬 Chat")
-st.info("Chat placeholder — paste your existing chat/agent logic here.")
+    # chat input (prefill if a chip was clicked)
+    default_val = st.session_state.pop("prefill", "")
+    user_msg = st.chat_input("Type your question…", key="chat_input", placeholder="e.g., Can you explain slope-intercept form?")
+    if not user_msg and default_val:
+        # show the prefill inside the input on rerun
+        st.session_state["chat_input"] = default_val
+        st.rerun()
+
+    if user_msg:
+        # append user
+        st.session_state.setdefault("messages", []).append({"role": "user", "content": user_msg})
+
+        # TODO: replace this with your real assistant call
+        assistant_reply = "Got it! I’ll help step-by-step. (Replace me with your real model call.)"
+
+        st.session_state.messages.append({"role": "assistant", "content": assistant_reply})
+        st.rerun()
+
+# RIGHT: tips & shortcuts
+with right:
+    st.markdown('<div class="section-title">Tips</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="card">
+      • Ask one clear question at a time<br>
+      • Share what you already tried<br>
+      • Say how detailed you want the answer
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="section-title" style="margin-top:1rem;">Shortcuts</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="card">
+      <div class="chips">
+        <button>Review my steps</button>
+        <button>Make a study plan</button>
+        <button>Give me a practice quiz</button>
+      </div>
+      <div style="font-size:.85rem; color:#5b6270;">Click to copy into the chat input.</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.divider()
+st.caption("💡 You can edit the labels, tips, and colors right in the code—everything above is pure UI.")
 
 # Footer
 st.markdown("---")

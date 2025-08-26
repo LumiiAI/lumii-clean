@@ -34,27 +34,91 @@ def _show_privacy_disclaimer() -> None:
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown(
-        """
-        <div style="background:#f0f8ff; border:1px solid #d6e9f9; padding:20px; border-radius:10px; text-align:center; line-height:1.6; max-width:800px; margin:0 auto;">
-          🎯 <b>Beta Subject Focus:</b> Math, Physics, Chemistry, Geography, and History
-          <br><br>
-          🛡️ <b>Enhanced Safety Features</b><br>Multiple layers of protection to keep you safe
-          <br><br>
-          👨‍👩‍👧‍👦 <b>Ask Your Parents First</b>
-        </div>
-        """, unsafe_allow_html=True,
-    )
+# Hero / Welcome banner
+st.markdown("""
+<div style='text-align: center; padding: 2rem; 
+     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); 
+     border-radius: 18px; margin-bottom: 2rem; color: white;'>
+  <h1 style='font-size: 2.5rem; margin-bottom: .5rem;'>🎓 Welcome to My Friend Lumii!</h1>
+  <p style='font-size: 1.3rem; margin: 0; opacity: 0.95;'>Your Safe AI Learning Companion</p>
+</div>
+""", unsafe_allow_html=True)
 
-    st.markdown("<div class='big-cta'>", unsafe_allow_html=True)
-    agree = st.button("🎓 I Agree & Start Learning with Lumii!", type="primary")
-    st.markdown("</div>", unsafe_allow_html=True)
+# Two-column highlights
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown("""
+    <div style='background: white; padding: 1.5rem; border-radius: 15px; 
+         box-shadow: 0 3px 6px rgba(0,0,0,0.08); text-align:center;'>
+      <h3 style='margin-top:0;'>🚀 Beta Testing</h3>
+      <p style='margin:0; color:#444;'>You're among our first beta families! Your feedback makes Lumii better.</p>
+    </div>
+    """, unsafe_allow_html=True)
+with col2:
+    st.markdown("""
+    <div style='background: white; padding: 1.5rem; border-radius: 15px; 
+         box-shadow: 0 3px 6px rgba(0,0,0,0.08); text-align:center;'>
+      <h3 style='margin-top:0;'>🛡️ Safety First</h3>
+      <p style='margin:0; color:#444;'>Multiple safety layers keep you protected. Your wellbeing is priority #1.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    if agree:
-        st.session_state.agreed_to_terms = True
-        st.rerun()
+# Subjects grid
+st.markdown("""
+<div style='background:#f9fafb; padding:2rem; border-radius:18px; margin:2rem 0;'>
+  <h2 style='text-align:center; margin-bottom:1.5rem;'>📚 Subjects I Can Help With</h2>
+  <div style='display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem;'>
+    <div style='background:white; padding:1rem; border-radius:10px; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.06);'>
+      🧮 <b>Mathematics</b><br><span style='font-size:.9rem;color:#555;'>Algebra, Geometry, Calculus</span>
+    </div>
+    <div style='background:white; padding:1rem; border-radius:10px; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.06);'>
+      ⚡ <b>Physics</b><br><span style='font-size:.9rem;color:#555;'>Motion, Energy, Electricity</span>
+    </div>
+    <div style='background:white; padding:1rem; border-radius:10px; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.06);'>
+      🧪 <b>Chemistry</b><br><span style='font-size:.9rem;color:#555;'>Reactions, Periodic Table</span>
+    </div>
+    <div style='background:white; padding:1rem; border-radius:10px; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.06);'>
+      🌍 <b>Geography</b><br><span style='font-size:.9rem;color:#555;'>Maps, Countries, Features</span>
+    </div>
+    <div style='background:white; padding:1rem; border-radius:10px; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.06);'>
+      🏛️ <b>History</b><br><span style='font-size:.9rem;color:#555;'>Events, Timelines</span>
+    </div>
+    <div style='background:white; padding:1rem; border-radius:10px; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,.06);'>
+      📖 <b>Study Skills</b><br><span style='font-size:.9rem;color:#555;'>Organization, Test Prep</span>
+    </div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
 
-    st.stop()
+# Important info
+st.markdown("""
+<div style='background:#fff8f0; padding:2rem; border-radius:18px; margin:2rem 0;'>
+  <h3 style='text-align:center; margin-bottom:1.5rem;'>💡 Important Information</h3>
+  <ul style='list-style:none; padding:0; max-width:600px; margin:0 auto; text-align:left;'>
+    <li style='margin-bottom:1rem;'><b>👨‍👩‍👧‍👦 Ask Your Parents First:</b> If under 16, please get parental permission.</li>
+    <li style='margin-bottom:1rem;'><b>📖 Not Covered in Beta:</b> English, Biology, Social Studies, Health/PE, Art, Music, Foreign Languages.</li>
+    <li><b>🔒 Safety Promise:</b> I will never help with anything harmful. If you're having difficult thoughts, please talk to a trusted adult.</li>
+  </ul>
+</div>
+""", unsafe_allow_html=True)
+
+# Call to action
+st.markdown("""
+<div style='text-align:center; margin:2.5rem 0;'>
+  <p style='font-size:1.1rem; margin-bottom:1.5rem; color:#333;'>
+    <strong>Ready to start learning safely?</strong><br>
+    Click below if you understand and your parents are okay with it!
+  </p>
+</div>
+""", unsafe_allow_html=True)
+
+# Agree button (logic unchanged)
+agree = st.button("🎓 I Agree & Start Learning with Lumii!", type="primary")
+if agree:
+    st.session_state.agreed_to_terms = True
+    st.rerun()
+
+st.stop()
 
 if "agreed_to_terms" not in st.session_state:
     st.session_state.agreed_to_terms = False

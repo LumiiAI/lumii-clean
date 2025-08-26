@@ -168,23 +168,38 @@ with left:
     else:
         st.info("Ask a question or pick a quick-start chip above to begin.")
 
-    # chat input (prefill if a chip was clicked)
-    default_val = st.session_state.pop("prefill", "")
-    user_msg = st.chat_input("Type your question…", key="chat_input", placeholder="e.g., Can you explain slope-intercept form?")
-    if not user_msg and default_val:
-        # show the prefill inside the input on rerun
-        st.session_state["chat_input"] = default_val
-        st.rerun()
+# --- Chat input (prefill support + fixed API usage) ---
 
-    if user_msg:
-        # append user
-        st.session_state.setdefault("messages", []).append({"role": "user", "content": user_msg})
+# 1) If a quick-start chip was clicked, prefill BEFORE rendering the input
+prefill = st.session_state.pop("prefill", None)
+if prefill:
+    st.session_state["chat_input"] = prefill  # key must match below
 
-        # TODO: replace this with your real assistant call
-        assistant_reply = "Got it! I’ll help step-by-step. (Replace me with your real model call.)"
+# 2) Render the input (NOTE: only 'placeholder' is valid here)
+user_msg = st.chat_input(
+    placeholder="Type your question… e.g., Can you explain slope-intercept form?",
+    key="chat_input",
+)
 
-        st.session_state.messages.append({"role": "assistant", "content": assistant_reply})
-        st.rerun()
+# 3) Handle send
+if user_msg:
+    # append user
+    st.session_state.setdefault("messages", []).append(
+        {"role": "user", "content": user_msg}
+    )
+
+    # TODO: replace with your real assistant call
+    assistant_reply = "Got it! I’ll help step-by-step. (Replace me with your real model call.)"
+
+    # append assistant
+    st.session_state.messages.append(
+        {"role": "assistant", "content": assistant_reply}
+    )
+
+    # clear input after send and rerun
+    st.session_state["chat_input"] = ""
+    st.rerun()
+
 
 # RIGHT: tips & shortcuts
 with right:

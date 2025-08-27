@@ -120,11 +120,23 @@ if user_msg:
     st.rerun()
 
 # ───────────────────────── Footer disclaimer ─────────────────
-st.markdown("<hr>", unsafe_allow_html=True)
+# --- Disclaimer fixed to bottom ---
 st.markdown(
     """
-    <div style='text-align:center; font-size:0.9rem; color:#222; margin-top:0.75rem;'>
-      ⚠️ Beta version — may make mistakes. Please double-check important answers with a teacher or parent.
+    <style>
+    .disclaimer {
+        position: fixed;
+        bottom: 0.25rem;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #222;
+        opacity: 0.85;
+    }
+    </style>
+    <div class="disclaimer">
+        ⚠️ Beta version — may make mistakes. Please double-check important answers with a teacher or parent.
     </div>
     """,
     unsafe_allow_html=True,

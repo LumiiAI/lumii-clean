@@ -119,23 +119,31 @@ if user_msg:
 
     st.rerun()
 
-# ───────────────────────── Footer disclaimer ─────────────────
-# --- Disclaimer fixed to bottom ---
+# --- Sticky disclaimer just above the chat input ---
 st.markdown(
     """
     <style>
-    .disclaimer {
+    /* leave room at the bottom so nothing overlaps */
+    html, body, [data-testid="stAppViewContainer"] {
+        padding-bottom: 90px !important;
+    }
+    /* show a line of text above the fixed chat input */
+    .lumii-disclaimer {
         position: fixed;
-        bottom: 0.25rem;
-        left: 0;
-        right: 0;
+        left: 0; right: 0;
+        bottom: 58px;             /* sits just above the input */
         text-align: center;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         color: #222;
-        opacity: 0.85;
+        opacity: 0.9;
+        z-index: 9999;
+        pointer-events: none;     /* don't block clicks */
+    }
+    @media (max-width: 600px){
+        .lumii-disclaimer { bottom: 74px; font-size: 0.85rem; }
     }
     </style>
-    <div class="disclaimer">
+    <div class="lumii-disclaimer">
         ⚠️ Beta version — may make mistakes. Please double-check important answers with a teacher or parent.
     </div>
     """,

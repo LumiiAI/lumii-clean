@@ -100,52 +100,36 @@ if not st.session_state.agreed_to_terms:
 # ───────────────────────── Clean Chat UI ──────────────────────
 st.markdown("<h1 style='text-align:center;'>🎓 My Friend Lumii</h1>", unsafe_allow_html=True)
 
-# History
+# History + greeting + disclaimer box (when empty)
 if st.session_state["messages"]:
     for m in st.session_state["messages"]:
         with st.chat_message(m["role"]):
             st.markdown(m["content"])
 else:
+    # Greeting banner
     st.info("👋 Hi! Ask me a question to get started.")
 
-# Input
-user_msg = st.chat_input("Type your question here…")
-if user_msg:
-    st.session_state["messages"].append({"role": "user", "content": user_msg})
+    # Disclaimer box under the banner
+    st.markdown(
+        """
+        <style>
+        .beta-box{
+            margin: 10px 0 18px;
+            padding: .75rem 1rem;
+            background:#fff;
+            border:1px solid rgba(0,0,0,.08);
+            border-left: 4px solid #f7b500; /* subtle amber accent */
+            border-radius: 10px;
+            color:#222;
+            font-size:.95rem;
+        }
+        </style>
+        <div class="beta-box">
+            ⚠️ Beta version — may make mistakes. Please double-check important answers with a teacher or parent.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    # Stub assistant reply (replace with your real model later)
-    reply = "Got it! I’ll help step by step. (Replace me with your model call.)"
-    st.session_state["messages"].append({"role": "assistant", "content": reply})
 
-    st.rerun()
 
-# --- Sticky disclaimer just above the chat input ---
-st.markdown(
-    """
-    <style>
-    /* leave room at the bottom so nothing overlaps */
-    html, body, [data-testid="stAppViewContainer"] {
-        padding-bottom: 90px !important;
-    }
-    /* show a line of text above the fixed chat input */
-    .lumii-disclaimer {
-        position: fixed;
-        left: 0; right: 0;
-        bottom: 58px;             /* sits just above the input */
-        text-align: center;
-        font-size: 0.9rem;
-        color: #222;
-        opacity: 0.9;
-        z-index: 9999;
-        pointer-events: none;     /* don't block clicks */
-    }
-    @media (max-width: 600px){
-        .lumii-disclaimer { bottom: 74px; font-size: 0.85rem; }
-    }
-    </style>
-    <div class="lumii-disclaimer">
-        ⚠️ Beta version — may make mistakes. Please double-check important answers with a teacher or parent.
-    </div>
-    """,
-    unsafe_allow_html=True,
-)

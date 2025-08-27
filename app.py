@@ -28,7 +28,7 @@ if "messages" not in st.session_state:
 if "chat_input" not in st.session_state:
     st.session_state["chat_input"] = ""
 
-# ───────────────────────── Disclaimer (pre-chat) ──────────────
+# ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
     # Hero
     st.markdown("""
@@ -40,16 +40,41 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # Short highlights
+    # Beta + Safety
     c1, c2 = st.columns(2)
     with c1:
         st.markdown("""<div class="card center"><h3 style="margin:0 0 .35rem 0;">🚀 Beta Testing</h3>
-        <p style="margin:0; color:#444;">You're among our early families — your feedback matters.</p></div>""",
+        <p style="margin:0; color:#444;">You're among our first 100 beta families! Help us improve with your feedback.</p></div>""",
                     unsafe_allow_html=True)
     with c2:
         st.markdown("""<div class="card center"><h3 style="margin:0 0 .35rem 0;">🛡️ Safety First</h3>
-        <p style="margin:0; color:#444;">Multiple safety layers keep you protected.</p></div>""",
+        <p style="margin:0; color:#444;">Multiple layers of protection keep you safe. Your wellbeing is #1.</p></div>""",
                     unsafe_allow_html=True)
+
+    # Subjects
+    st.markdown("""
+    <div class="card" style="margin:2rem 0;">
+      <h2 style='text-align:center; margin-bottom:1rem;'>📚 Subjects I Can Help With</h2>
+      <div style='display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;'>
+        <div class='card'><b>🧮 Mathematics</b><br>Algebra, Geometry, Calculus</div>
+        <div class='card'><b>⚡ Physics</b><br>Motion, Energy, Electricity</div>
+        <div class='card'><b>🧪 Chemistry</b><br>Reactions, Periodic Table</div>
+        <div class='card'><b>🌍 Geography</b><br>Maps, Countries</div>
+        <div class='card'><b>🏛️ History</b><br>Events, Timelines</div>
+        <div class='card'><b>📖 Study Skills</b><br>Organization, Test Prep</div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Important info
+    st.markdown("""
+    <div class="card" style="background:#fff8f1; margin-bottom:2rem;">
+      <h3 style="margin-top:0;">💡 Important Information</h3>
+      <p>👨‍👩‍👧‍👦 <b>Ask Your Parents First:</b> If under 16, please get parental permission.</p>
+      <p>📖 <b>Not Covered in Beta:</b> English, Biology, Social Studies, Health/PE, Art, Music, Foreign Languages.</p>
+      <p>🔒 <b>Safety Promise:</b> I will never help with anything harmful. If you're having difficult thoughts, please talk to a trusted adult.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     # CTA
     st.markdown("""
@@ -88,13 +113,13 @@ user_msg = st.chat_input("Type your question here…")
 if user_msg:
     st.session_state["messages"].append({"role": "user", "content": user_msg})
 
-    # Stub assistant reply (replace with real model later)
+    # Stub assistant reply (replace with your real model later)
     reply = "Got it! I’ll help step by step. (Replace me with your model call.)"
     st.session_state["messages"].append({"role": "assistant", "content": reply})
 
     st.rerun()
 
-# ───────────────────────── Footer disclaimer (black text) ─────
+# ───────────────────────── Footer disclaimer ─────────────────
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown(
     """

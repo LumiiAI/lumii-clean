@@ -131,5 +131,14 @@ else:
         unsafe_allow_html=True,
     )
 
+# --- Chat input (ALWAYS render this at top level, near the end) ---
+user_msg = st.chat_input("Type your question here…")
+
+if user_msg:
+    st.session_state.setdefault("messages", []).append({"role": "user", "content": user_msg})
+    # stub / real reply
+    reply = "Got it! I’ll help step by step. (Replace me with your model call.)"
+    st.session_state["messages"].append({"role": "assistant", "content": reply})
+    st.rerun()
 
 

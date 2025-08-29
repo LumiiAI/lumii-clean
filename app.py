@@ -110,18 +110,22 @@ if "agreed_to_terms" not in st.session_state:
 if not st.session_state.agreed_to_terms:
     show_disclaimer()
 
-# --- Status badge ---
-api_key = st.secrets.get("GROQ_API_KEY", "")
-if not api_key:
-    st.error("⛔ AI Offline — no API key configured")
-elif st.session_state.get("memory_safe_mode"):
-    st.warning("⚠️ Memory Safe Mode Active")
-else:
-    st.success("✅ Smart AI with Safety Active")
-
 
 # ───────────────────────── Clean Chat UI ──────────────────────
 st.markdown("<h1 style='text-align:center;'>🎓 My Friend Lumii</h1>", unsafe_allow_html=True)
+
+# Title
+st.markdown("<h1 style='text-align:center;'>🎓 My Friend Lumii</h1>", unsafe_allow_html=True)
+
+# Status badge right below the title
+api_key = st.secrets.get("GROQ_API_KEY", "")
+if not api_key:
+    st.markdown("<div style='text-align:center; color:#e53e3e; font-weight:600;'>⛔ AI Offline — no API key configured</div>", unsafe_allow_html=True)
+elif st.session_state.get("memory_safe_mode"):
+    st.markdown("<div style='text-align:center; color:#d97706; font-weight:600;'>⚠️ Memory Safe Mode Active</div>", unsafe_allow_html=True)
+else:
+    st.markdown("<div style='text-align:center; color:#059669; font-weight:600;'>✅ Smart AI with Safety Active</div>", unsafe_allow_html=True)
+
 
 # History + greeting + disclaimer box (when empty)
 if st.session_state["messages"]:

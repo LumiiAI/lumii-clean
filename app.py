@@ -1,4 +1,5 @@
 import streamlit as st
+from lumii_core_logic_v2 import LumiiState, generate_response_with_memory_safety
 
 # ───────────────────────── Page setup ─────────────────────────
 st.set_page_config(page_title="My Friend Lumii", page_icon="🎓", layout="centered")

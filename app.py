@@ -151,8 +151,21 @@ if user_msg:
     st.session_state["messages"].append({"role": "user", "content": user_msg})
     state["messages"] = st.session_state["messages"]
 
-    # 2) call core logic (safe: has guards, retries, trimming)
+    # 2) fallback if no API key (clear banner + helper reply)
     api_key = st.secrets.get("GROQ_API_KEY", "")
+    if not api_key:
+        st.info("AI is offline (no API key found). Using helper mode for now.")
+        helper = (
+            "I’m currently offline, but I can still help you structure this!\n\n"
+            "1) Tell me what the problem is.\n"
+            "2) Share what you’ve tried.\n"
+            "3) I’ll guide you step-by-step."
+        )
+        st.session_state["messages"].append({"role": "assistant", "content": helper})
+        state["messages"] = st.session_state["messages"]
+        st.rerun()
+
+    # 3) call core logic (guards, retries, trimming inside)
     result = generate_response_with_memory_safety(
         state=state,
         message=user_msg,
@@ -160,19 +173,20 @@ if user_msg:
         api_key=api_key,
     )
 
-    # 3) extract text + optional safety flag
+    # 4) extract text + optional safety flag
     ai_text = result.get("content") or "I ran into a temporary issue. Let’s try again."
-    flag = result.get("priority")  # e.g., 'crisis', 'manipulation', 'subject_restricted', or None
+    flag = result.get("priority")  # 'crisis' | 'manipulation' | 'subject_restricted' | None
 
-    # 4) append assistant reply and keep states in sync
+    # 5) append assistant reply and keep states in sync
     st.session_state["messages"].append({"role": "assistant", "content": ai_text})
     state["messages"] = st.session_state["messages"]
 
-    # 5) optional: surface a small banner if a safety path triggered
+    # 6) optional: surface a small banner if a safety path triggered
     if flag in {"crisis", "manipulation", "subject_restricted"}:
         st.warning(f"Safety filter active: {flag.replace('_',' ')}")
 
     st.rerun()
+
 
 
 

@@ -110,6 +110,16 @@ if "agreed_to_terms" not in st.session_state:
 if not st.session_state.agreed_to_terms:
     show_disclaimer()
 
+# --- Status badge ---
+api_key = st.secrets.get("GROQ_API_KEY", "")
+if not api_key:
+    st.error("⛔ AI Offline — no API key configured")
+elif st.session_state.get("memory_safe_mode"):
+    st.warning("⚠️ Memory Safe Mode Active")
+else:
+    st.success("✅ Smart AI with Safety Active")
+
+
 # ───────────────────────── Clean Chat UI ──────────────────────
 st.markdown("<h1 style='text-align:center;'>🎓 My Friend Lumii</h1>", unsafe_allow_html=True)
 

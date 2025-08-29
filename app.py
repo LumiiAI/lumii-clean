@@ -29,6 +29,18 @@ if "messages" not in st.session_state:
 if "chat_input" not in st.session_state:
     st.session_state["chat_input"] = ""
 
+# --- Core logic state (for Lumii) ---
+if "lumii_state" not in st.session_state:
+    st.session_state["lumii_state"] = LumiiState()
+
+# local handle
+state = st.session_state["lumii_state"]
+
+# make sure messages list is synced between UI and logic
+state.setdefault("messages", st.session_state["messages"])
+state["messages"] = st.session_state["messages"]
+
+
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
     # Hero

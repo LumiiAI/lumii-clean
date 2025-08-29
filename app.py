@@ -146,12 +146,33 @@ else:
 
 # --- Chat input (ALWAYS render this at top level, near the end) ---
 user_msg = st.chat_input("Type your question here…")
-
 if user_msg:
-    st.session_state.setdefault("messages", []).append({"role": "user", "content": user_msg})
-    # stub / real reply
-    reply = "Got it! I’ll help step by step. (Replace me with your model call.)"
-    st.session_state["messages"].append({"role": "assistant", "content": reply})
+    # 1) append user to UI + logic state
+    st.session_state["messages"].append({"role": "user", "content": user_msg})
+    state["messages"] = st.session_state["messages"]
+
+    # 2) call core logic (safe: has guards, retries, trimming)
+    api_key = st.secrets.get("GROQ_API_KEY", "")
+    result = generate_response_with_memory_safety(
+        state=state,
+        message=user_msg,
+        tool_name="lumii_main",
+        api_key=api_key,
+    )
+
+    # 3) extract text + optional safety flag
+    ai_text = result.get("content") or "I ran into a temporary issue. Let’s try again."
+    flag = result.get("priority")  # e.g., 'crisis', 'manipulation', 'subject_restricted', or None
+
+    # 4) append assistant reply and keep states in sync
+    st.session_state["messages"].append({"role": "assistant", "content": ai_text})
+    state["messages"] = st.session_state["messages"]
+
+    # 5) optional: surface a small banner if a safety path triggered
+    if flag in {"crisis", "manipulation", "subject_restricted"}:
+        st.warning(f"Safety filter active: {flag.replace('_',' ')}")
+
     st.rerun()
+
 
 

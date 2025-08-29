@@ -112,7 +112,6 @@ if not st.session_state.agreed_to_terms:
 
 
 # ───────────────────────── Clean Chat UI ──────────────────────
-st.markdown("<h1 style='text-align:center;'>🎓 My Friend Lumii</h1>", unsafe_allow_html=True)
 
 # Title
 st.markdown("<h1 style='text-align:center;'>🎓 My Friend Lumii</h1>", unsafe_allow_html=True)

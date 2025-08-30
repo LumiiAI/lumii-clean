@@ -55,29 +55,32 @@ state["messages"] = st.session_state["messages"]
 def show_disclaimer():
     # Hero (logo + text inside the same gradient box)
     _b64 = _logo_b64("logo.png")
-    (f"""
-    <style>
-      /* stack on small screens */
-      @media (max-width: 700px) {{
-        .lumii-hero-flex {{ flex-direction: column; text-align: center; }}
-        .lumii-hero-flex img {{ width: 120px !important; margin-bottom: .5rem; }}
-      }}
-    </style>
-    <div style="
-         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-         border-radius: 18px; margin-bottom: 2rem; color: white;
-         padding: 1.75rem 1.5rem;">
-      <div class="lumii-hero-flex" style="
-           display: flex; align-items: center; gap: 18px;">
-        {"<img src='data:image/png;base64," + _b64 + "' alt='Lumii Logo' style='width:160px; border-radius:16px; filter:drop-shadow(0 4px 10px rgba(0,0,0,.15));'>" if _b64 else ""}
-        <div>
-          <h1 style="font-size: 2.4rem; margin:.25rem 0 .4rem;">Welcome to My Friend Lumii!</h1>
-          <p style="font-size:1.15rem; margin:0; opacity:.95;">Your Safe AI Learning Companion</p>
+    st.markdown(
+        f"""
+        <style>
+          /* stack on small screens */
+          @media (max-width: 700px) {{
+            .lumii-hero-flex {{ flex-direction: column; text-align: center; }}
+            .lumii-hero-flex img {{ width: 120px !important; margin-bottom: .5rem; }}
+          }}
+        </style>
+        <div style="
+             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+             border-radius: 18px; margin-bottom: 2rem; color: white;
+             padding: 1.75rem 1.5rem;">
+          <div class="lumii-hero-flex" style="
+               display: flex; align-items: center; gap: 18px;">
+            {("<img src='data:image/png;base64," + _b64 + "' alt='Lumii Logo' style='width:160px; border-radius:16px; filter:drop-shadow(0 4px 10px rgba(0,0,0,.15));'>") if _b64 else ""}
+            <div>
+              <h1 style="font-size: 2.4rem; margin:.25rem 0 .4rem;">Welcome to My Friend Lumii!</h1>
+              <p style="font-size:1.15rem; margin:0; opacity:.95;">Your Safe AI Learning Companion</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    """, unsafe_allow_html=True
-)
+        """,
+        unsafe_allow_html=True,
+    )
+
 
     ("</div>", unsafe_allow_html=True)
 

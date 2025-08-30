@@ -44,9 +44,14 @@ state["messages"] = st.session_state["messages"]
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
     # Logo (separate element, centered, larger)
-    st.markdown("<div style='text-align:center; margin-bottom: 16px;'>", unsafe_allow_html=True)
-    st.image("logo.png", width=220)  # adjust width as needed
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown(
+    """
+    <div style='display:flex; justify-content:center; margin-bottom: 16px;'>
+        <img src="logo.png" width="220">
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
     # Hero
     st.markdown("""

@@ -43,17 +43,12 @@ state["messages"] = st.session_state["messages"]
 
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
-    # Logo (separate element, centered, larger)
-    st.markdown(
-    """
-    <div style='display:flex; justify-content:center; margin-bottom: 16px;'>
-        <img src="logo.png" width="220">
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    # Logo (reliable) + keep your hero below
+    st.markdown("<div style='text-align:center; margin-bottom: 6px;'>", unsafe_allow_html=True)
+    st.image("logo.png", width=130)  # if you move it to /assets, change to "assets/logo.png"
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    # Hero
+    # Hero (unchanged)
     st.markdown("""
     <div style='text-align:center; padding: 2rem;
          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
@@ -99,7 +94,7 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # CTA
+    # CTA copy
     st.markdown("""
     <div class='center' style='margin:2rem 0 1rem;'>
       <p style='font-size:1.05rem; color:#333; margin-bottom:1rem;'>
@@ -213,6 +208,5 @@ if user_msg:
         st.warning(f"Safety filter active: {flag.replace('_',' ')}")
 
     st.rerun()
-
 
 

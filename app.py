@@ -145,8 +145,25 @@ if not st.session_state.agreed_to_terms:
 
 # ───────────────────────── Clean Chat UI ──────────────────────
 
-# Title
-st.markdown("<h1 style='text-align:center;'>🎓 My Friend Lumii</h1>", unsafe_allow_html=True)
+# Title (logo + title using same base64/flex approach as disclaimer)
+_b64 = _logo_b64("logo.png")
+st.markdown(f"""
+<style>
+  /* Responsive stack on small screens */
+  @media (max-width: 700px) {{
+    .lumii-chat-header {{ flex-direction: column; text-align: center; }}
+    .lumii-chat-header img {{ width: 90px !important; margin-bottom: .35rem; }}
+  }}
+</style>
+<div class="center" style="margin-top:.25rem; margin-bottom:.35rem;">
+  <div class="lumii-chat-header" style="
+       display:flex; align-items:center; justify-content:center; gap:14px;">
+    {("<img src='data:image/png;base64," + _b64 + "' alt='Lumii Logo' "
+      "style='width:110px; border-radius:12px; filter:drop-shadow(0 3px 8px rgba(0,0,0,.12));'>") if _b64 else ""}
+    <h1 style="margin:.1rem 0 .2rem; line-height:1.1;">My Friend Lumii</h1>
+  </div>
+</div>
+""", unsafe_allow_html=True)
 
 # Status badge right below the title
 api_key = st.secrets.get("GROQ_API_KEY", "")

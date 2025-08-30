@@ -55,39 +55,36 @@ state["messages"] = st.session_state["messages"]
 def show_disclaimer():
     # Hero (logo + text inside the same gradient box)
     _b64 = _logo_b64("logo.png")
-    st.markdown(
-        f"""
-        <style>
-          /* stack on small screens */
-          @media (max-width: 700px) {{
-            .lumii-hero-flex {{ flex-direction: column; text-align: center; }}
-            .lumii-hero-flex img {{ width: 120px !important; margin-bottom: .5rem; }}
-          }}
-        </style>
-        <div style="
-             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-             border-radius: 18px; margin-bottom: 2rem; color: white;
-             padding: 1.75rem 1.5rem;">
-          <div class="lumii-hero-flex" style="
-               display: flex; align-items: center; gap: 18px;">
-            {("<img src='data:image/png;base64," + _b64 + "' alt='Lumii Logo' style='width:160px; border-radius:16px; filter:drop-shadow(0 4px 10px rgba(0,0,0,.15));'>") if _b64 else ""}
-            <div>
-              <h1 style="font-size: 2.4rem; margin:.25rem 0 .4rem;">Welcome to My Friend Lumii!</h1>
-              <p style="font-size:1.15rem; margin:0; opacity:.95;">Your Safe AI Learning Companion</p>
-            </div>
-          </div>
+    st.markdown(f"""
+    <style>
+      /* stack on small screens */
+      @media (max-width: 700px) {{
+        .lumii-hero-flex {{ flex-direction: column; text-align: center; }}
+        .lumii-hero-flex img {{ width: 120px !important; margin-bottom: .5rem; }}
+      }}
+    </style>
+    <div style="
+         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+         border-radius: 18px; margin-bottom: 2rem; color: white;
+         padding: 1.75rem 1.5rem;">
+      <div class="lumii-hero-flex" style="
+           display: flex; align-items: center; gap: 18px;">
+        {"<img src='data:image/png;base64," + _b64 + "' alt='Lumii Logo' style='width:160px; border-radius:16px; filter:drop-shadow(0 4px 10px rgba(0,0,0,.15));'>" if _b64 else ""}
+        <div>
+          <h1 style="font-size: 2.4rem; margin:.25rem 0 .4rem;">Welcome to My Friend Lumii!</h1>
+          <p style="font-size:1.15rem; margin:0; opacity:.95;">Your Safe AI Learning Companion</p>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+      </div>
+    </div>
+    """, unsafe_allow_html=True
+)
 
-
-    ("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     # Beta + Safety
     c1, c2 = st.columns(2)
     with c1:
-        ("""<div class="card center"><h3 style="margin:0 0 .35rem 0;">🚀 Beta Testing</h3>
+        st.markdown("""<div class="card center"><h3 style="margin:0 0 .35rem 0;">🚀 Beta Testing</h3>
         <p style="margin:0; color:#444;">You're among our first 100 beta families! Help us improve with your feedback.</p></div>""",
                     unsafe_allow_html=True)
     with c2:
@@ -148,19 +145,8 @@ if not st.session_state.agreed_to_terms:
 
 # ───────────────────────── Clean Chat UI ──────────────────────
 
-# ── Title with centered logo ─────────────────────────────────
-logo_b64 = _logo_b64("logo.png")
-
-header_html = f"""
-<div style="display:flex; align-items:center; justify-content:center; gap:12px; margin:10px 0 6px;">
-  {('<img src="data:image/png;base64,' + logo_b64 + '" width="50" '
-     'style="border-radius:10px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.08));">') if logo_b64 else ''}
-  <span style="font-size:2rem; font-weight:800; line-height:1;">My Friend Lumii</span>
-</div>
-"""
-
-st.markdown(header_html, unsafe_allow_html=True)
-
+# Title
+st.markdown("<h1 style='text-align:center;'>🎓 My Friend Lumii</h1>", unsafe_allow_html=True)
 
 # Status badge right below the title
 api_key = st.secrets.get("GROQ_API_KEY", "")
@@ -245,5 +231,4 @@ if user_msg:
         st.warning(f"Safety filter active: {flag.replace('_',' ')}")
 
     st.rerun()
-
 

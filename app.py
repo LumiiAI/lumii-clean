@@ -44,9 +44,23 @@ state["messages"] = st.session_state["messages"]
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
     # Logo (reliable) + keep your hero below
-    st.markdown("<div style='text-align:center; margin-bottom: 6px;'>", unsafe_allow_html=True)
-    st.image("logo.png", width=130)  # if you move it to /assets, change to "assets/logo.png"
-    st.markdown("</div>", unsafe_allow_html=True)
+    # Centered, larger, responsive logo
+    st.markdown(
+        """
+        <div style="display:flex; justify-content:center; margin: 10px 0 16px;">
+          <img src="logo.png" alt="Lumii Logo"
+               style="
+                 width: 220px;           /* base size */
+                 max-width: 40vw;        /* shrink on smaller screens */
+                 min-width: 140px;       /* don’t get too tiny */
+                 border-radius: 18px;
+                 filter: drop-shadow(0 4px 10px rgba(0,0,0,.12));
+               ">
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
 
     # Hero (unchanged)
     st.markdown("""

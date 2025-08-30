@@ -145,20 +145,18 @@ if not st.session_state.agreed_to_terms:
 
 # ───────────────────────── Clean Chat UI ──────────────────────
 
-# Title with logo (flexbox, centered)
-logo_b64 = _logo_b64()
-if logo_b64:
-    st.markdown(
-        f"""
-        <div style='display:flex; align-items:center; justify-content:center; gap:12px;'>
-            <img src="data:image/png;base64,{logo_b64}" width="50">
-            <span style='font-size:2rem; font-weight:800;'>My Friend Lumii</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-else:
-    st.markdown("<h1 style='text-align:center;'>My Friend Lumii</h1>", unsafe_allow_html=True)
+# ── Title with centered logo ─────────────────────────────────
+logo_b64 = _logo_b64("logo.png")
+
+header_html = f"""
+<div style="display:flex; align-items:center; justify-content:center; gap:12px; margin:10px 0 6px;">
+  {('<img src="data:image/png;base64,' + logo_b64 + '" width="50" '
+     'style="border-radius:10px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.08));">') if logo_b64 else ''}
+  <span style="font-size:2rem; font-weight:800; line-height:1;">My Friend Lumii</span>
+</div>
+"""
+
+st.markdown(header_html, unsafe_allow_html=True)
 
 
 # Status badge right below the title

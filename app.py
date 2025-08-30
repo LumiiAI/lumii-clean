@@ -164,14 +164,14 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# Status badge right below the title
+# Status banner (own box, Option A)
 api_key = st.secrets.get("GROQ_API_KEY", "")
 if not api_key:
-    st.markdown("<div style='text-align:center; color:#e53e3e; font-weight:600;'>⛔ AI Offline — no API key configured</div>", unsafe_allow_html=True)
+    st.error("⛔ AI Offline — no API key configured", icon="⛔")
 elif st.session_state.get("memory_safe_mode"):
-    st.markdown("<div style='text-align:center; color:#d97706; font-weight:600;'>⚠️ Memory Safe Mode Active</div>", unsafe_allow_html=True)
+    st.warning("⚠️ Memory Safe Mode Active", icon="⚠️")
 else:
-    st.markdown("<div style='text-align:center; color:#059669; font-weight:600;'>✅ Smart AI with Safety Active</div>", unsafe_allow_html=True)
+    st.success("✅ Smart AI with Safety Active", icon="✅")
 
 
 # History + greeting + disclaimer box (when empty)

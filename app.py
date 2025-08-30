@@ -55,7 +55,7 @@ state["messages"] = st.session_state["messages"]
 def show_disclaimer():
     # Hero (logo + text inside the same gradient box)
     _b64 = _logo_b64("logo.png")
-    st.markdown(f"""
+    (f"""
     <style>
       /* stack on small screens */
       @media (max-width: 700px) {{
@@ -79,12 +79,12 @@ def show_disclaimer():
     """, unsafe_allow_html=True
 )
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    ("</div>", unsafe_allow_html=True)
 
     # Beta + Safety
     c1, c2 = st.columns(2)
     with c1:
-        st.markdown("""<div class="card center"><h3 style="margin:0 0 .35rem 0;">🚀 Beta Testing</h3>
+        ("""<div class="card center"><h3 style="margin:0 0 .35rem 0;">🚀 Beta Testing</h3>
         <p style="margin:0; color:#444;">You're among our first 100 beta families! Help us improve with your feedback.</p></div>""",
                     unsafe_allow_html=True)
     with c2:
@@ -145,15 +145,20 @@ if not st.session_state.agreed_to_terms:
 
 # ───────────────────────── Clean Chat UI ──────────────────────
 
-# Title with logo (Streamlit-safe)
-col_logo, col_text, _ = st.columns([1, 3, 1])
-with col_logo:
-    st.image("logo.png", width=50)
-with col_text:
-    st.markdown(
-        "<h1 style='margin:0; padding-top:10px;'>My Friend Lumii</h1>",
-        unsafe_allow_html=True,
-    )
+# Title with centered logo (flex, baseline aligned)
+_b64 = _logo_b64("logo.png")
+st.markdown(
+    f"""
+    <div style="
+        display:flex; align-items:center; justify-content:center;
+        gap:12px; margin: 10px 0 6px;
+    ">
+      {'<img src="data:image/png;base64,' + _b64 + '" width="44" style="border-radius:10px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.08));">' if _b64 else ''}
+      <span style="font-size:2rem; font-weight:800; line-height:1;">My Friend Lumii</span>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 # Status badge right below the title

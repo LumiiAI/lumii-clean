@@ -43,12 +43,17 @@ state["messages"] = st.session_state["messages"]
 
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
-    # Hero
+    # Logo (reliable) + keep your hero below
+    st.markdown("<div style='text-align:center; margin-bottom: 6px;'>", unsafe_allow_html=True)
+    st.image("logo.png", width=130)  # if you move it to /assets, change to "assets/logo.png"
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # Hero (unchanged)
     st.markdown("""
     <div style='text-align:center; padding: 2rem;
          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
          border-radius: 18px; margin-bottom: 2rem; color: white;'>
-      <h1 style='font-size: 2.5rem; margin-bottom:.5rem;'>🎓 Welcome to My Friend Lumii!</h1>
+      <h1 style='font-size: 2.5rem; margin-bottom:.5rem;'>Welcome to My Friend Lumii!</h1>
       <p style='font-size:1.2rem; margin:0; opacity:.95;'>Your Safe AI Learning Companion</p>
     </div>
     """, unsafe_allow_html=True)
@@ -89,7 +94,7 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # CTA
+    # CTA copy
     st.markdown("""
     <div class='center' style='margin:2rem 0 1rem;'>
       <p style='font-size:1.05rem; color:#333; margin-bottom:1rem;'>
@@ -99,10 +104,14 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    if st.button("🎓 I Agree & Start Learning with Lumii!", type="primary"):
-        st.session_state.agreed_to_terms = True
-        st.rerun()
+    # Centered button (keeps native Streamlit styling)
+    col_l, col_c, col_r = st.columns([1, 2, 1])
+    with col_c:
+        if st.button("✅ I Agree & Start Learning", use_container_width=True):
+            st.session_state.agreed_to_terms = True
+            st.rerun()
 
+    # IMPORTANT: stop the rest of the app from rendering until agreed
     st.stop()
 
 if "agreed_to_terms" not in st.session_state:

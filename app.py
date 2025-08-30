@@ -145,16 +145,16 @@ if not st.session_state.agreed_to_terms:
 
 # ───────────────────────── Clean Chat UI ──────────────────────
 
-# Title with logo
-st.markdown(
-    """
-    <div style='text-align:center; margin: 1rem 0;'>
-        <img src='logo.png' width='50' style='vertical-align:middle; margin-right:10px;'>
-        <span style='font-size:2rem; font-weight:700; vertical-align:middle;'>My Friend Lumii</span>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+# Title with logo (Streamlit-safe)
+col_logo, col_text, _ = st.columns([1, 3, 1])
+with col_logo:
+    st.image("logo.png", width=50)
+with col_text:
+    st.markdown(
+        "<h1 style='margin:0; padding-top:10px;'>My Friend Lumii</h1>",
+        unsafe_allow_html=True,
+    )
+
 
 # Status badge right below the title
 api_key = st.secrets.get("GROQ_API_KEY", "")

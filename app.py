@@ -167,11 +167,11 @@ st.markdown(f"""
 # Status banner (own box, Option A)
 api_key = st.secrets.get("GROQ_API_KEY", "")
 if not api_key:
-    st.error("⛔ AI Offline — no API key configured", icon="⛔")
+    st.error("AI Offline — no API key configured", icon="⛔")
 elif st.session_state.get("memory_safe_mode"):
-    st.warning("⚠️ Memory Safe Mode Active", icon="⚠️")
+    st.warning("Memory Safe Mode Active", icon="⚠️")
 else:
-    st.success("✅ Smart AI with Safety Active", icon="✅")
+    st.success("Smart AI with Safety Active", icon="✅")
 
 
 # History + greeting + disclaimer box (when empty)

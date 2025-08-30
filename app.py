@@ -43,20 +43,15 @@ state["messages"] = st.session_state["messages"]
 
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
-    # Logo + title (centered) for the disclaimer
-    st.markdown(
-    """
+    # Hero
+    st.markdown("""
     <div style='text-align:center; padding: 2rem;
          background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
          border-radius: 18px; margin-bottom: 2rem; color: white;'>
-      <img src="logo.png" alt="Lumii Logo" style="width:100px; margin-bottom:1rem;">
-      <h1 style='font-size: 2.5rem; margin-bottom:.5rem;'>Welcome to My Friend Lumii!</h1>
+      <h1 style='font-size: 2.5rem; margin-bottom:.5rem;'>🎓 Welcome to My Friend Lumii!</h1>
       <p style='font-size:1.2rem; margin:0; opacity:.95;'>Your Safe AI Learning Companion</p>
     </div>
-    """,
-    unsafe_allow_html=True,
-)
-
+    """, unsafe_allow_html=True)
 
     # Beta + Safety
     c1, c2 = st.columns(2)
@@ -104,9 +99,8 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # Agree button
-    if st.button("✅ I Agree & Start Learning with Lumii!"):
-        st.session_state["disclaimer_agreed"] = True
+    if st.button("🎓 I Agree & Start Learning with Lumii!", type="primary"):
+        st.session_state.agreed_to_terms = True
         st.rerun()
 
     st.stop()
@@ -205,7 +199,6 @@ if user_msg:
         st.warning(f"Safety filter active: {flag.replace('_',' ')}")
 
     st.rerun()
-
 
 
 

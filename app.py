@@ -106,8 +106,8 @@ def show_disclaimer():
 
     # Agree button
     if st.button("✅ I Agree & Start Learning with Lumii!"):
-    st.session_state["disclaimer_agreed"] = True
-    st.rerun()
+        st.session_state["disclaimer_agreed"] = True
+        st.rerun()
 
     st.stop()
 

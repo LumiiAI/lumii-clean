@@ -43,15 +43,21 @@ state["messages"] = st.session_state["messages"]
 
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
-    # Hero
-    st.markdown("""
-    <div style='text-align:center; padding: 2rem;
-         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-         border-radius: 18px; margin-bottom: 2rem; color: white;'>
-      <h1 style='font-size: 2.5rem; margin-bottom:.5rem;'>🎓 Welcome to My Friend Lumii!</h1>
-      <p style='font-size:1.2rem; margin:0; opacity:.95;'>Your Safe AI Learning Companion</p>
+    # Logo + title (centered) for the disclaimer
+    st.markdown(
+    """
+    <div style="text-align:center; margin-bottom: 10px;">
+        <img src="logo.png" alt="Lumii logo"
+             style="width: 130px; max-width: 35vw; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.08);" />
+        <h1 style="margin: 8px 0 4px;">Welcome to My Friend Lumii!</h1>
+        <h2 style="margin: 0; font-weight: 500; color: #334155;">
+            Beta Testing Phase – Math & Science Tutor
+        </h2>
     </div>
-    """, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True,
+    )
+
 
     # Beta + Safety
     c1, c2 = st.columns(2)
@@ -99,9 +105,12 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    if st.button("🎓 I Agree & Start Learning with Lumii!", type="primary"):
-        st.session_state.agreed_to_terms = True
+    # Centered agree button
+    st.markdown("<div style='text-align:center; margin-top:2rem;'>", unsafe_allow_html=True)
+    if st.button("✅ I Agree & Start Learning", use_container_width=False):
+        st.session_state["disclaimer_agreed"] = True
         st.rerun()
+    st.markdown("</div>", unsafe_allow_html=True)
 
     st.stop()
 

@@ -43,20 +43,29 @@ state["messages"] = st.session_state["messages"]
 
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
-    # Logo (reliable) + keep your hero below
-    st.markdown("<div style='text-align:center; margin-bottom: 6px;'>", unsafe_allow_html=True)
-    st.image("logo.png", width=130)  # if you move it to /assets, change to "assets/logo.png"
-    st.markdown("</div>", unsafe_allow_html=True)
+    # Hero (logo + text side by side, inside gradient)
+    st.markdown(
+        """
+        <div style='background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+                    border-radius: 18px; padding: 2rem; margin-bottom: 2rem;'>
+        """,
+        unsafe_allow_html=True
+    )
 
-    # Hero (unchanged)
-    st.markdown("""
-    <div style='text-align:center; padding: 2rem;
-         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-         border-radius: 18px; margin-bottom: 2rem; color: white;'>
-      <h1 style='font-size: 2.5rem; margin-bottom:.5rem;'>Welcome to My Friend Lumii!</h1>
-      <p style='font-size:1.2rem; margin:0; opacity:.95;'>Your Safe AI Learning Companion</p>
-    </div>
-    """, unsafe_allow_html=True)
+    c1, c2 = st.columns([1, 3])
+    with c1:
+        st.image("logo.png", width=160)
+
+    with c2:
+        st.markdown(
+            """
+            <h1 style='font-size: 2.5rem; margin-bottom:.5rem; color:white;'>Welcome to My Friend Lumii!</h1>
+            <p style='font-size:1.2rem; margin:0; opacity:.95; color:white;'>Your Safe AI Learning Companion</p>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
     # Beta + Safety
     c1, c2 = st.columns(2)
@@ -69,7 +78,7 @@ def show_disclaimer():
         <p style="margin:0; color:#444;">Multiple layers of protection keep you safe. Your wellbeing is #1.</p></div>""",
                     unsafe_allow_html=True)
 
-    # Subjects
+    # Subjects (unchanged)
     st.markdown("""
     <div class="card" style="margin:2rem 0;">
       <h2 style='text-align:center; margin-bottom:1rem;'>📚 Subjects I Can Help With</h2>
@@ -84,7 +93,7 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # Important info
+    # Important info (unchanged)
     st.markdown("""
     <div class="card" style="background:#fff8f1; margin-bottom:2rem;">
       <h3 style="margin-top:0;">💡 Important Information</h3>
@@ -94,7 +103,7 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # CTA copy
+    # CTA copy + button (unchanged)
     st.markdown("""
     <div class='center' style='margin:2rem 0 1rem;'>
       <p style='font-size:1.05rem; color:#333; margin-bottom:1rem;'>

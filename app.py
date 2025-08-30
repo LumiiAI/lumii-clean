@@ -104,12 +104,10 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # Centered agree button
-    st.markdown("<div style='text-align:center; margin-top:2rem;'>", unsafe_allow_html=True)
-    if st.button("✅ I Agree & Start Learning", use_container_width=False):
-        st.session_state["disclaimer_agreed"] = True
-        st.rerun()
-    st.markdown("</div>", unsafe_allow_html=True)
+    # Agree button
+    if st.button("✅ I Agree & Start Learning with Lumii!"):
+    st.session_state["disclaimer_agreed"] = True
+    st.rerun()
 
     st.stop()
 

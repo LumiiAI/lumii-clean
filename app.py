@@ -1,5 +1,15 @@
 import streamlit as st
 from lumii_core_logic_v2 import LumiiState, generate_response_with_memory_safety
+import base64
+import os
+
+@st.cache_data
+def _logo_b64(path="logo.png") -> str:
+    try:
+        with open(path, "rb") as f:
+            return base64.b64encode(f.read()).decode("utf-8")
+    except Exception:
+        return ""  # falls back to no image if file missing
 
 # ───────────────────────── Page setup ─────────────────────────
 st.set_page_config(page_title="My Friend Lumii", page_icon="🎓", layout="centered")
@@ -43,27 +53,31 @@ state["messages"] = st.session_state["messages"]
 
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
-    # Hero (logo + text side by side, inside gradient)
-    st.markdown(
-        """
-        <div style='background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-                    border-radius: 18px; padding: 2rem; margin-bottom: 2rem;'>
-        """,
-        unsafe_allow_html=True
-    )
-
-    c1, c2 = st.columns([1, 3])
-    with c1:
-        st.image("logo.png", width=160)
-
-    with c2:
-        st.markdown(
-            """
-            <h1 style='font-size: 2.5rem; margin-bottom:.5rem; color:white;'>Welcome to My Friend Lumii!</h1>
-            <p style='font-size:1.2rem; margin:0; opacity:.95; color:white;'>Your Safe AI Learning Companion</p>
-            """,
-            unsafe_allow_html=True,
-        )
+    # Hero (logo + text inside the same gradient box)
+    _b64 = _logo_b64("logo.png")
+    st.markdown(f"""
+    <style>
+      /* stack on small screens */
+      @media (max-width: 700px) {{
+        .lumii-hero-flex {{ flex-direction: column; text-align: center; }}
+        .lumii-hero-flex img {{ width: 120px !important; margin-bottom: .5rem; }}
+      }}
+    </style>
+    <div style="
+         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+         border-radius: 18px; margin-bottom: 2rem; color: white;
+         padding: 1.75rem 1.5rem;">
+      <div class="lumii-hero-flex" style="
+           display: flex; align-items: center; gap: 18px;">
+        {"<img src='data:image/png;base64," + _b64 + "' alt='Lumii Logo' style='width:160px; border-radius:16px; filter:drop-shadow(0 4px 10px rgba(0,0,0,.15));'>" if _b64 else ""}
+        <div>
+          <h1 style="font-size: 2.4rem; margin:.25rem 0 .4rem;">Welcome to My Friend Lumii!</h1>
+          <p style="font-size:1.15rem; margin:0; opacity:.95;">Your Safe AI Learning Companion</p>
+        </div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True
+)
 
     st.markdown("</div>", unsafe_allow_html=True)
 

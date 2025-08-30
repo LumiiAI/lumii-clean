@@ -145,8 +145,16 @@ if not st.session_state.agreed_to_terms:
 
 # ───────────────────────── Clean Chat UI ──────────────────────
 
-# Title
-st.markdown("<h1 style='text-align:center;'>🎓 My Friend Lumii</h1>", unsafe_allow_html=True)
+# Title with logo
+st.markdown(
+    """
+    <div style='text-align:center; margin: 1rem 0;'>
+        <img src='logo.png' width='50' style='vertical-align:middle; margin-right:10px;'>
+        <span style='font-size:2rem; font-weight:700; vertical-align:middle;'>My Friend Lumii</span>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Status badge right below the title
 api_key = st.secrets.get("GROQ_API_KEY", "")

@@ -42,17 +42,16 @@ state["messages"] = st.session_state["messages"]
 
 
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
-def _show_privacy_disclaimer() -> None:
-    # --- Logo + title (safe to add) ---
-    st.markdown("<div style='text-align:center; margin-bottom: 10px;'>", unsafe_allow_html=True)
-    st.image("logo.png", width=130)  # file sits next to app.py
+def show_disclaimer():
+    # Hero
     st.markdown("""
-        <h1 style="margin: 8px 0 4px;">Welcome to My Friend Lumii!</h1>
-        <h2 style="margin: 0; font-weight: 500; color: #334155;">
-            Your Safe AI Learning Companion
-        </h2>
+    <div style='text-align:center; padding: 2rem;
+         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+         border-radius: 18px; margin-bottom: 2rem; color: white;'>
+      <h1 style='font-size: 2.5rem; margin-bottom:.5rem;'>🎓 Welcome to My Friend Lumii!</h1>
+      <p style='font-size:1.2rem; margin:0; opacity:.95;'>Your Safe AI Learning Companion</p>
+    </div>
     """, unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
 
     # Beta + Safety
     c1, c2 = st.columns(2)

@@ -109,17 +109,8 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # Styled disclaimer header + long text expander
-    st.markdown("""
-    <div class='card' style='background:#fff8f1;border-left:5px solid #f7b500;padding:1rem 1.1rem;'>
-      <div style='display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;'>
-        <span style='font-size:1.2rem'>📜</span>
-        <span style='font-weight:600;'>Disclaimer</span>
-      </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    with st.expander("Read the full disclaimer (click to expand)", expanded=False):
+    # SINGLE disclaimer expander (title + long text + checkbox + agree button)
+    with st.expander("📜 Disclaimer — click to read and agree", expanded=False):
         st.markdown("""
         _Paste your longer disclaimer text here…_
 
@@ -128,16 +119,14 @@ def show_disclaimer():
         - Kids under 16 should ask a parent/guardian before use.
         """)
 
-    # Checkbox + agree button (button enabled only if checked)
-    agree_check = st.checkbox("I have read and understood the disclaimer", key="agree_ck")
+        agree_check = st.checkbox("I have read and understood the disclaimer", key="agree_ck")
 
-    col_l, col_c, col_r = st.columns([1, 2, 1])
-    with col_c:
-        st.markdown("<div style='margin-top:.25rem'></div>", unsafe_allow_html=True)
-        if st.button("✅ I Agree & Start Learning", use_container_width=True, disabled=not agree_check, key="agree_btn"):
-            # store version so users re-confirm if you change the text later
-            st.session_state["agreed_version"] = DISCLAIMER_VERSION
-            st.rerun()
+        col_l, col_c, col_r = st.columns([1, 2, 1])
+        with col_c:
+            st.markdown("<div style='margin-top:.5rem'></div>", unsafe_allow_html=True)
+            if st.button("✅ I Agree & Start Learning", use_container_width=True, disabled=not agree_check, key="agree_btn"):
+                st.session_state["agreed_version"] = DISCLAIMER_VERSION
+                st.rerun()
 
     # IMPORTANT: stop the rest of the app from rendering until agreed
     st.stop()

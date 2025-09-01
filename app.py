@@ -83,31 +83,31 @@ def show_disclaimer():
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # Beta + Safety
-    c1, c2 = st.columns(2)
-    with c1:
-        st.markdown("""<div class="card center"><h3 style="margin:0 0 .35rem 0;">🚀 Beta Testing</h3>
-        <p style="margin:0; color:#444;">You're among our first 100 beta families! Help us improve with your feedback.</p></div>""",
-                    unsafe_allow_html=True)
-    with c2:
-        st.markdown("""<div class="card center"><h3 style="margin:0 0 .35rem 0;">🛡️ Safety First</h3>
-        <p style="margin:0; color:#444;">Multiple layers of protection keep you safe. Your wellbeing is #1.</p></div>""",
-                    unsafe_allow_html=True)
+    # --- Beta + Safety (dark-mode safe, no hard-coded colors) ---
+    st.subheader("🚀 Beta Testing")
+    st.write("You're among our first 100 beta families! Help us improve with your feedback.")
 
-    # Subjects (unchanged)
-    st.markdown("""
-    <div class="card" style="margin:2rem 0;">
-      <h2 style='text-align:center; margin-bottom:1rem;'>📚 Subjects I Can Help With</h2>
-      <div style='display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;'>
-        <div class='card'><b>🧮 Mathematics</b><br>Algebra, Geometry, Calculus</div>
-        <div class='card'><b>⚡ Physics</b><br>Motion, Energy, Electricity</div>
-        <div class='card'><b>🧪 Chemistry</b><br>Reactions, Periodic Table</div>
-        <div class='card'><b>🌍 Geography</b><br>Maps, Countries</div>
-        <div class='card'><b>🏛️ History</b><br>Events, Timelines</div>
-        <div class='card'><b>📖 Study Skills</b><br>Organization, Test Prep</div>
-      </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.subheader("🛡️ Safety First")
+    st.write("Multiple layers of protection keep you safe. Your wellbeing is #1.")
+
+    # --- Subjects (dark-mode safe layout) ---
+    st.markdown("## 📚 Subjects I Can Help With")
+
+    cols = st.columns(3)
+    with cols[0]:
+        st.markdown("**🧮 Mathematics**  \nAlgebra, Geometry, Calculus")
+    with cols[1]:
+        st.markdown("**⚡ Physics**  \nMotion, Energy, Electricity")
+    with cols[2]:
+        st.markdown("**🧪 Chemistry**  \nReactions, Periodic Table")
+
+    cols = st.columns(3)
+    with cols[0]:
+        st.markdown("**🌍 Geography**  \nMaps, Countries")
+    with cols[1]:
+        st.markdown("**🏛️ History**  \nEvents, Timelines")
+    with cols[2]:
+        st.markdown("**📖 Study Skills**  \nOrganization, Test Prep")
 
     # --- Disclaimer (dark-mode safe) ---
     with st.expander("📜 Disclaimer — click to read and agree", expanded=False):

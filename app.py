@@ -2,6 +2,8 @@ import streamlit as st
 from lumii_core_logic_v2 import LumiiState, generate_response_with_memory_safety
 import base64
 import os
+# Require users to re-accept if we change the disclaimer meaningfully
+DISCLAIMER_VERSION = "2025-09-01-v1"
 
 @st.cache_data
 def _logo_b64(path="logo.png") -> str:
@@ -117,29 +119,41 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # CTA copy + button (unchanged)
+    # Styled disclaimer header + long text expander
     st.markdown("""
-    <div class='center' style='margin:2rem 0 1rem;'>
-      <p style='font-size:1.05rem; color:#333; margin-bottom:1rem;'>
-        <strong>Ready to start learning safely?</strong><br>
-        Click below if you understand and your parents are okay with it!
-      </p>
+    <div class='card' style='background:#fff8f1;border-left:5px solid #f7b500;padding:1rem 1.1rem;'>
+      <div style='display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;'>
+        <span style='font-size:1.2rem'>📜</span>
+        <span style='font-weight:600;'>Disclaimer</span>
+      </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Centered button (keeps native Streamlit styling)
+    with st.expander("Read the full disclaimer (click to expand)", expanded=False):
+        st.markdown("""
+        _Paste your longer disclaimer text here…_
+
+        - Keep this in **Markdown**.
+        - You can include bullet points, links, and short sections.
+        - Kids under 16 should ask a parent/guardian before use.
+        """)
+
+    # Checkbox + agree button (button enabled only if checked)
+    agree_check = st.checkbox("I have read and understood the disclaimer", key="agree_ck")
+
     col_l, col_c, col_r = st.columns([1, 2, 1])
     with col_c:
-        if st.button("✅ I Agree & Start Learning", use_container_width=True):
-            st.session_state.agreed_to_terms = True
+        st.markdown("<div style='margin-top:.25rem'></div>", unsafe_allow_html=True)
+        if st.button("✅ I Agree & Start Learning", use_container_width=True, disabled=not agree_check, key="agree_btn"):
+            # store version so users re-confirm if you change the text later
+            st.session_state["agreed_version"] = DISCLAIMER_VERSION
             st.rerun()
 
     # IMPORTANT: stop the rest of the app from rendering until agreed
     st.stop()
 
-if "agreed_to_terms" not in st.session_state:
-    st.session_state.agreed_to_terms = False
-if not st.session_state.agreed_to_terms:
+
+if st.session_state.get("agreed_version") != DISCLAIMER_VERSION:
     show_disclaimer()
 
 

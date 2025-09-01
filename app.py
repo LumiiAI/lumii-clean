@@ -109,6 +109,7 @@ def show_disclaimer():
     with cols[2]:
         st.markdown("**📖 Study Skills**  \nOrganization, Test Prep")
 
+
     # --- Disclaimer (dark-mode safe) ---
     with st.expander("📜 Disclaimer — click to read and agree", expanded=False):
         st.markdown("## 📜 Disclaimer")

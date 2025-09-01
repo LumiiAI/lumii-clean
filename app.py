@@ -114,32 +114,39 @@ def show_disclaimer():
         st.markdown("""
         Beta Testing Disclaimer
 Important Notice: Beta Software
+
 This is beta software under active development. By using MyFriendLumii K-12 Learning Companion, you acknowledge and agree to the following terms:
 Educational Use Limitations
+
 This tool is designed to supplement, not replace traditional teaching methods and human instruction
 All educational content should be verified by qualified educators before relying on it for learning outcomes
 The AI may provide incomplete, inaccurate, or inappropriate responses - always use with adult supervision for K-12 students
 Not suitable for high-stakes educational decisions such as grading, placement, or assessment
+
 Beta Software Risks
-Service interruptions and unexpected downtime may occur
-Data loss is possible - do not rely on the service to store critical information
-Features may change or be removed without notice as we improve the platform
-Response quality and accuracy will vary as we refine our algorithms
+- Service interruptions and unexpected downtime may occur
+- Data loss is possible - do not rely on the service to store critical information
+- Features may change or be removed without notice as we improve the platform
+- Response quality and accuracy will vary as we refine our algorithms
+
 Privacy and Data Protection
-Student interactions may be logged and analyzed to improve our service
-We follow applicable  privacy laws 
-No personal identifying information should be shared in conversations
-Parents and educators should review all interactions involving minors
+- Student interactions may be logged and analyzed to improve our service
+- We follow applicable  privacy laws 
+- No personal identifying information should be shared in conversations
+- Parents and educators should review all interactions involving minors
+
 No Warranties
-MyFriendLumii provides this beta service "AS IS" without any warranties, express or implied
-We make no guarantees about educational outcomes, content accuracy, or service availability
-Use at your own risk and discretion
+- MyFriendLumii provides this beta service "AS IS" without any warranties, express or implied
+- We make no guarantees about educational outcomes, content accuracy, or service availability
+- Use at your own risk and discretion
+
 Your Participation
 By participating in our beta program, you agree to:
-Provide constructive feedback about bugs, issues, and improvements
-Use the service responsibly and in accordance with educational best practices
-Supervise student interactions and ensure age-appropriate usage
-Report any concerning behavior or inappropriate content immediately after using the app via dedicated form.
+- Provide constructive feedback about bugs, issues, and improvements
+- Use the service responsibly and in accordance with educational best practices
+- Supervise student interactions and ensure age-appropriate usage
+- Report any concerning behavior or inappropriate content immediately after using the app via dedicated form.
+
 Contact
 For questions, concerns, or to report issues: 
 Last Updated: 

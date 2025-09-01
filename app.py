@@ -109,8 +109,9 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # SINGLE disclaimer expander (title + long text + checkbox + agree button)
+    # --- Disclaimer (dark-mode safe) ---
     with st.expander("📜 Disclaimer — click to read and agree", expanded=False):
+        st.markdown("## 📜 Disclaimer")
         st.markdown("""
         Beta Testing Disclaimer
 Important Notice: Beta Software

@@ -83,31 +83,34 @@ def show_disclaimer():
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # --- Beta + Safety (dark-mode safe, no hard-coded colors) ---
-    st.subheader("🚀 Beta Testing")
-    st.write("You're among our first 100 beta families! Help us improve with your feedback.")
+    # --- Beta + Safety (boxed, theme-safe) ---
+    with st.container(border=True):
+        st.subheader("🚀 Beta Testing")
+        st.write("You're among our first 100 beta families! Help us improve with your feedback.")
 
-    st.subheader("🛡️ Safety First")
-    st.write("Multiple layers of protection keep you safe. Your wellbeing is #1.")
+    with st.container(border=True):
+        st.subheader("🛡️ Safety First")
+        st.write("Multiple layers of protection keep you safe. Your wellbeing is #1.")
 
-    # --- Subjects (dark-mode safe layout) ---
-    st.markdown("## 📚 Subjects I Can Help With")
+    # --- Subjects (boxed section with a simple grid) ---
+    with st.container(border=True):
+        st.markdown("## 📚 Subjects I Can Help With")
 
-    cols = st.columns(3)
-    with cols[0]:
-        st.markdown("**🧮 Mathematics**  \nAlgebra, Geometry, Calculus")
-    with cols[1]:
-        st.markdown("**⚡ Physics**  \nMotion, Energy, Electricity")
-    with cols[2]:
-        st.markdown("**🧪 Chemistry**  \nReactions, Periodic Table")
+        row1 = st.columns(3)
+        with row1[0]:
+            st.markdown("**🧮 Mathematics**  \nAlgebra, Geometry, Calculus")
+        with row1[1]:
+            st.markdown("**⚡ Physics**  \nMotion, Energy, Electricity")
+        with row1[2]:
+            st.markdown("**🧪 Chemistry**  \nReactions, Periodic Table")
 
-    cols = st.columns(3)
-    with cols[0]:
-        st.markdown("**🌍 Geography**  \nMaps, Countries")
-    with cols[1]:
-        st.markdown("**🏛️ History**  \nEvents, Timelines")
-    with cols[2]:
-        st.markdown("**📖 Study Skills**  \nOrganization, Test Prep")
+        row2 = st.columns(3)
+        with row2[0]:
+            st.markdown("**🌍 Geography**  \nMaps, Countries")
+        with row2[1]:
+            st.markdown("**🏛️ History**  \nEvents, Timelines")
+        with row2[2]:
+            st.markdown("**📖 Study Skills**  \nOrganization, Test Prep")
 
 
     # --- Disclaimer (dark-mode safe) ---

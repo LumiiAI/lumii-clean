@@ -109,16 +109,6 @@ def show_disclaimer():
     </div>
     """, unsafe_allow_html=True)
 
-    # Important info (unchanged)
-    st.markdown("""
-    <div class="card" style="background:#fff8f1; margin-bottom:2rem;">
-      <h3 style="margin-top:0;">💡 Important Information</h3>
-      <p>👨‍👩‍👧‍👦 <b>Ask Your Parents First:</b> If under 16, please get parental permission.</p>
-      <p>📖 <b>Not Covered in Beta:</b> English, Biology, Social Studies, Health/PE, Art, Music, Foreign Languages.</p>
-      <p>🔒 <b>Safety Promise:</b> I will never help with anything harmful. If you're having difficult thoughts, please talk to a trusted adult.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
     # Styled disclaimer header + long text expander
     st.markdown("""
     <div class='card' style='background:#fff8f1;border-left:5px solid #f7b500;padding:1rem 1.1rem;'>

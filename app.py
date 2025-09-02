@@ -69,9 +69,6 @@ if dq.get("date") != today:
 st.session_state["daily_quota"] = dq
 remaining = max(0, DAILY_LIMIT - dq["used"])
 
-# Small UI hint so you can see it working
-st.caption(f"🔢 Daily messages left: {remaining}/{DAILY_LIMIT} (Europe/Ljubljana)")
-
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():
     # Hero (logo + text inside the same gradient box)
@@ -196,7 +193,7 @@ LICENSEE IS ADVISED TO SAFEGUARD IMPORTANT DATA, TO USE CAUTION AND NOT TO RELY 
 
 if st.session_state.get("agreed_version") != DISCLAIMER_VERSION:
     show_disclaimer()
-
+    st.stop()
 
 # ───────────────────────── Clean Chat UI ──────────────────────
 
@@ -260,8 +257,17 @@ else:
         unsafe_allow_html=True,
     )
 
+# --- Daily quota status (chat page only): show just above the input ---
+dq = st.session_state.get("daily_quota") or {
+    "date": datetime.now(TZ).date().isoformat(),
+    "used": 0
+}
+remaining = max(0, DAILY_LIMIT - dq.get("used", 0))
+st.caption(f"🔢 Daily messages left: {remaining}/{DAILY_LIMIT} (Europe/Ljubljana)")
+
 # --- Chat input (ALWAYS render this at top level, near the end) ---
 user_msg = st.chat_input("Type your question here…")
+
 if user_msg:
     # 1) append user to UI + logic state
     st.session_state["messages"].append({"role": "user", "content": user_msg})

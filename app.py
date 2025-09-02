@@ -2,6 +2,15 @@ import streamlit as st
 from lumii_core_logic_v2 import LumiiState, generate_response_with_memory_safety
 import base64
 import os
+
+from datetime import datetime
+from zoneinfo import ZoneInfo  # built-in in Python 3.9+
+
+DAILY_LIMIT = 20
+TZ = ZoneInfo("Europe/Ljubljana")
+FEEDBACK_FORM_URL = "https://your-google-form-link.example"  # ← replace with your Google Form
+
+
 # Require users to re-accept if we change the disclaimer meaningfully
 DISCLAIMER_VERSION = "2025-09-01-v1"
 
@@ -52,6 +61,16 @@ state = st.session_state["lumii_state"]
 state.setdefault("messages", st.session_state["messages"])
 state["messages"] = st.session_state["messages"]
 
+# ── Daily quota init/rollover ────────────────────────────────────────────────
+today = datetime.now(TZ).date().isoformat()
+dq = st.session_state.get("daily_quota") or {"date": today, "used": 0}
+if dq.get("date") != today:
+    dq = {"date": today, "used": 0}
+st.session_state["daily_quota"] = dq
+remaining = max(0, DAILY_LIMIT - dq["used"])
+
+# Small UI hint so you can see it working
+st.caption(f"🔢 Daily messages left: {remaining}/{DAILY_LIMIT} (Europe/Ljubljana)")
 
 # ───────────────────────── Full Disclaimer (pre-chat) ─────────
 def show_disclaimer():

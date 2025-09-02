@@ -281,7 +281,7 @@ if user_msg:
     if st.session_state["daily_quota"]["used"] >= DAILY_LIMIT:
         st.info(
             "You’ve reached today’s 20-message limit. "
-            "Hvala! 🫶 We’d love your feedback to make Lumii better."
+            "Thank you for testing Lumii! 🫶 We’d love your feedback to make Lumii better."
         )
         # Friendly button to your Google Form (configure FEEDBACK_FORM_URL at top)
         st.link_button("Share feedback", FEEDBACK_FORM_URL)

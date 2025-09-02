@@ -265,14 +265,6 @@ dq = st.session_state.get("daily_quota") or {
 remaining = max(0, DAILY_LIMIT - dq.get("used", 0))
 st.caption(f"🔢 Daily messages left: {remaining}/{DAILY_LIMIT} (Europe/Ljubljana)")
 
-# --- Daily quota status (chat page only): show just above the input ---
-dq = st.session_state.get("daily_quota") or {
-    "date": datetime.now(TZ).date().isoformat(),
-    "used": 0
-}
-remaining = max(0, DAILY_LIMIT - dq.get("used", 0))
-st.caption(f"🔢 Daily messages left: {remaining}/{DAILY_LIMIT} (Europe/Ljubljana)")
-
 # --- Chat input (ALWAYS render this at top level, near the end) ---
 user_msg = st.chat_input("Type your question here…")
 

@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo  # built-in in Python 3.9+
 
 DAILY_LIMIT = 20
 TZ = ZoneInfo("Europe/Ljubljana")
-FEEDBACK_FORM_URL = "https://your-google-form-link.example"  # ← replace with your Google Form
+FEEDBACK_FORM_URL = "https://forms.gle/XudYBTGsweCaKhc96"  # ← replace with your Google Form
 
 
 # Require users to re-accept if we change the disclaimer meaningfully
@@ -265,15 +265,33 @@ dq = st.session_state.get("daily_quota") or {
 remaining = max(0, DAILY_LIMIT - dq.get("used", 0))
 st.caption(f"🔢 Daily messages left: {remaining}/{DAILY_LIMIT} (Europe/Ljubljana)")
 
+# --- Daily quota status (chat page only): show just above the input ---
+dq = st.session_state.get("daily_quota") or {
+    "date": datetime.now(TZ).date().isoformat(),
+    "used": 0
+}
+remaining = max(0, DAILY_LIMIT - dq.get("used", 0))
+st.caption(f"🔢 Daily messages left: {remaining}/{DAILY_LIMIT} (Europe/Ljubljana)")
+
 # --- Chat input (ALWAYS render this at top level, near the end) ---
 user_msg = st.chat_input("Type your question here…")
 
 if user_msg:
-    # 1) append user to UI + logic state
+    # ── 0) Hard cap: block before we add to history or call the model ─────────
+    if st.session_state["daily_quota"]["used"] >= DAILY_LIMIT:
+        st.info(
+            "You’ve reached today’s 20-message limit. "
+            "Hvala! 🫶 We’d love your feedback to make Lumii better."
+        )
+        # Friendly button to your Google Form (configure FEEDBACK_FORM_URL at top)
+        st.link_button("Share feedback", FEEDBACK_FORM_URL)
+        st.stop()
+
+    # ── 1) Append user message (for UI continuity) ────────────────────────────
     st.session_state["messages"].append({"role": "user", "content": user_msg})
     state["messages"] = st.session_state["messages"]
 
-    # 2) fallback if no API key (clear banner + helper reply)
+    # ── 2) Check API key; offline helper DOES NOT consume quota ───────────────
     api_key = st.secrets.get("GROQ_API_KEY", "")
     if not api_key:
         st.info("AI is offline (no API key found). Using helper mode for now.")
@@ -287,7 +305,10 @@ if user_msg:
         state["messages"] = st.session_state["messages"]
         st.rerun()
 
-    # 3) call core logic (guards, retries, trimming inside)
+    # ── 3) We will call the model → consume 1 unit from today's quota ─────────
+    st.session_state["daily_quota"]["used"] += 1
+
+    # ── 4) Normal LLM path (guards, retries, trimming inside) ─────────────────
     result = generate_response_with_memory_safety(
         state=state,
         message=user_msg,
@@ -295,15 +316,15 @@ if user_msg:
         api_key=api_key,
     )
 
-    # 4) extract text + optional safety flag
+    # ── 5) Extract text + optional safety flag ────────────────────────────────
     ai_text = result.get("content") or "I ran into a temporary issue. Let’s try again."
     flag = result.get("priority")  # 'crisis' | 'manipulation' | 'subject_restricted' | None
 
-    # 5) append assistant reply and keep states in sync
+    # ── 6) Append assistant reply and keep states in sync ─────────────────────
     st.session_state["messages"].append({"role": "assistant", "content": ai_text})
     state["messages"] = st.session_state["messages"]
 
-    # 6) optional: surface a small banner if a safety path triggered
+    # ── 7) Optional: surface a small banner if a safety path triggered ────────
     if flag in {"crisis", "manipulation", "subject_restricted"}:
         st.warning(f"Safety filter active: {flag.replace('_',' ')}")
 

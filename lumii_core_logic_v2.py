@@ -37,7 +37,7 @@ class LumiiState(dict):
 class Settings:
     groq_api_url: str = "https://api.groq.com/openai/v1/chat/completions"
     groq_api_key: str = os.getenv("GROQ_API_KEY", "")
-    model: str = "llama3-70b-8192"
+    model: str = "llama-3.3-70b-versatile"
     temperature: float = 0.7
     max_tokens: int = 1000
     request_timeout_sec: int = 20

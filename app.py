@@ -106,8 +106,9 @@ def show_disclaimer():
 
     with st.container(border=True):
         st.subheader("🛡️ Safety First")
-        st.write("Lumii is safe & private with strict data privacy. Lumii has built-in age-appropriate responses & is trained to filter out potentially inappropriate content* 
-*beta testing terms apply.")
+        st.write("""Lumii is safe & private with strict data privacy. 
+Lumii has built-in age-appropriate responses & is trained to filter out potentially inappropriate content* 
+*beta testing terms apply.""")
 
     with st.container(border=True):
         st.subheader("💚 Feel-good learning (wellbeing built in)")

@@ -89,8 +89,8 @@ def show_disclaimer():
            display: flex; align-items: center; gap: 18px;">
         {"<img src='data:image/png;base64," + _b64 + "' alt='Lumii Logo' style='width:160px; border-radius:16px; filter:drop-shadow(0 4px 10px rgba(0,0,0,.15));'>" if _b64 else ""}
         <div>
-          <h1 style="font-size: 2.4rem; margin:.25rem 0 .4rem;">Welcome to My Friend Lumii!</h1>
-          <p style="font-size:1.15rem; margin:0; opacity:.95;">Your Safe AI Learning Companion</p>
+          <h1 style="font-size: 2.4rem; margin:.25rem 0 .4rem;">Welcome to My Friend Lumii</h1>
+          <p style="font-size:1.15rem; margin:0; opacity:.95;">An intelligent and safe AI learning & wellbeing companion for K–12 students</p>
         </div>
       </div>
     </div>
@@ -99,18 +99,23 @@ def show_disclaimer():
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # --- Beta + Safety (boxed, theme-safe) ---
+    # --- Beta + Safety + Feel-good (boxed, theme-safe) ---
     with st.container(border=True):
-        st.subheader("🚀 Beta Testing")
-        st.write("You're among our first 100 beta families! Help us improve with your feedback.")
+        st.subheader("🚀 Beta club")
+        st.write("You’re one of our first 100 beta testing families — thank you! Your feedback will directly shape the way Lumii works.")
 
     with st.container(border=True):
         st.subheader("🛡️ Safety First")
-        st.write("Multiple layers of protection keep you safe. Your wellbeing is #1.")
+        st.write("Lumii is safe & private with strict data privacy. Lumii has built-in age-appropriate responses & is trained to filter out potentially inappropriate content* 
+*beta testing terms apply.")
+
+    with st.container(border=True):
+        st.subheader("💚 Feel-good learning (wellbeing built in)")
+        st.write("Short mood check-ins, mini breaks, and cheering messages to keep stress low and confidence high.")
 
     # --- Subjects (boxed section with a simple grid) ---
     with st.container(border=True):
-        st.markdown("## 📚 Subjects I Can Help With")
+        st.markdown("## 📚 Subjects I can help with")
 
         row1 = st.columns(3)
         with row1[0]:

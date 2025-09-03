@@ -143,6 +143,7 @@ Lumii has built-in age-appropriate responses & is trained to filter out potentia
 Important Notice: Beta Software
 
 This is beta software under active development. By using MyFriendLumii K-12 Learning Companion, you acknowledge and agree to the following terms:
+
 Educational Use Limitations
 
 This tool is designed to supplement, not replace traditional teaching methods and human instruction
